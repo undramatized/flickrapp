@@ -7,12 +7,17 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('./config/passportConfig');
 var routes = require('./routes/index');
+var expressLayouts = require('express-ejs-layouts');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+//express-layouts setup
+app.use(expressLayouts);
+app.set('layout', 'layout');
 
 //static folder setup
 app.use(express.static(__dirname + '/public/'))
@@ -42,6 +47,6 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 
-app.listen(3100);
+app.listen(process.env.PORT || 3100);
 
 module.exports = app;
